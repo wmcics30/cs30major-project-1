@@ -2,7 +2,7 @@
 // David(Zihan) Yang
 // February 10th, 2021
 //
-// Extra for Experts:
+// Project explanation/Nice to have:
 // - describe what you did to take this project "above and beyond"
 
 let player;
@@ -20,11 +20,11 @@ function draw() {
 
 class Character{                  
   constructor(){          
-       this.w = ;              
-       this.h = ;              
-       this.x = ;              
+       this.w = 50;              
+       this.h = 80;              
+       this.x = 50;              
        this.y = height-this.h; 
-       this.dx = ;    
+       this.dx = 5;    
   }  
   
   jump(){                     
@@ -37,10 +37,14 @@ class Character{
     rect(this.x,this.y,this.w,this.h);         
   }  
 }
-
+ 
 function keyPressed() {
-  if (key === 87 || key === 38) {
-    player.jump();
+  // if (key === 87 || key === 38) {
+  //   player.jump();
+  // }
+
+  if (key === "d") {
+    
   }
 }
 
