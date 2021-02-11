@@ -20,11 +20,11 @@ function draw() {
 
 class Character{                  
   constructor(){          
-       this.w = 50;              
-       this.h = 80;              
-       this.x = 50;              
-       this.y = height-this.h; 
-       this.dx = 5;    
+    this.w = 50;              
+    this.h = 100;
+    this.x = 75;              
+    this.y = height-this.h; 
+    this.dx = 5;    
   }  
   
   jump(){                     
@@ -39,12 +39,8 @@ class Character{
 }
  
 function keyPressed() {
-  // if (key === 87 || key === 38) {
-  //   player.jump();
-  // }
-
-  if (key === "d") {
-    
+  if (key === 87 || key === 38) {
+    player.jump();
   }
 }
 
