@@ -37,18 +37,39 @@ class Character{
     rect(this.x,this.y,this.w,this.h);         
   }  
 }
- 
+
+class groundObstacles {
+  constructor() {
+    this.x;
+    this.y;
+    this.dx;
+
+  }
+
+  move() {
+    
+  }
+}
+
+class airObstacles {
+  constructor() {
+    this.x;
+    this.y;
+    this.dx;
+
+  }
+
+  move() {
+
+  }
+}
+
+
 function keyPressed() {
   if (key === 87 || key === 38) {
     player.jump();
   }
 }
 
-class groundObstacles {
-  constructor() {
-    this.x;
-    this.y;
-    
-  }
-}
+
   
