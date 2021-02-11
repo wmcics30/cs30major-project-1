@@ -44,4 +44,11 @@ function keyPressed() {
   }
 }
 
+class groundObstacles {
+  constructor() {
+    this.x;
+    this.y;
+    
+  }
+}
   
