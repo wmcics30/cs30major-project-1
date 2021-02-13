@@ -6,10 +6,12 @@
 // - describe what you did to take this project "above and beyond"
 
 let player;
+let lastAddedObstacle = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   player = new Character();
+
 }
 
 function draw() {
@@ -22,12 +24,15 @@ class Character{
   constructor(){          
     this.w = 50;              
     this.h = 100;
-    this.x = 75;              
-    this.y = height-this.h; 
-    this.dx = 5;    
+    this.x = 100;              
+    this.y = height - this.h; 
+    this.dy;    
+    this.gravity = 1;
   }  
   
-  jump(){                     
+  jump(){  
+    if(this.y === height - this.h) {
+    }                   
   }
   
   move(){                                       
@@ -40,10 +45,10 @@ class Character{
 
 class groundObstacles {
   constructor() {
-    this.x;
-    this.y;
-    this.dx;
-
+    this.x = width;
+    this.y = height - this.h;
+    this.w;
+    this.h;
   }
 
   move() {
@@ -56,11 +61,14 @@ class airObstacles {
     this.x;
     this.y;
     this.dx;
-
   }
 
   move() {
+    this.x -= 10;
+  }
 
+  display() {
+    rect(this.x,this.y,this.w,this.h);
   }
 }
 
