@@ -9,7 +9,7 @@ let player;
 let lastAddedObstacle = 0;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(800, 400);
   player = new Character();
 
 }
@@ -26,16 +26,20 @@ class Character{
     this.h = 100;
     this.x = 100;              
     this.y = height - this.h; 
-    this.dy;    
+    this.dy = 0;    
     this.gravity = 1;
   }  
   
   jump(){  
     if(this.y === height - this.h) {
+      this.dy = -20;
     }                   
   }
   
-  move(){                                       
+  move(){                  
+    this.y += this.dy;   
+    this.dy += this.gravity;  
+    this.y = constrain(this.y, 0, height - this.h);                
   }
   
   display(){                                       
@@ -45,14 +49,15 @@ class Character{
 
 class groundObstacles {
   constructor() {
+    this.w = 50;
+    this.h = 100;
     this.x = width;
     this.y = height - this.h;
-    this.w;
-    this.h;
+   
   }
 
   move() {
-    
+    this.x -= 8;
   }
 }
 
@@ -74,7 +79,7 @@ class airObstacles {
 
 
 function keyPressed() {
-  if (key === 87 || key === 38) {
+  if (keyCode === 87 || keyCode === 38) {
     player.jump();
   }
 }
