@@ -5,12 +5,14 @@
 // Project explanation/Nice to have:
 // - describe what you did to take this project "above and beyond"
 
-let player;
+let player, gObs;
 let lastAddedObstacle = 0;
+let gObstacles = []; 
 
 function setup() {
   createCanvas(800, 400);
   player = new Character();
+  gObs = new groundObstacles();
 
 }
 
@@ -18,6 +20,16 @@ function draw() {
   background(220);
   player.display();
   player.move();
+  let timePassed = random(700, 8000);           
+  if (millis() - lastAddedObstacle > timePassed) {   
+      gObstacles.push(new groundObstacles());         
+      lastAddedObstacle = millis();              
+  }
+
+  for (let i of gObstacles) {      
+      i.move();                           
+      i.display();                            
+  }
 }
 
 class Character{                  
@@ -59,23 +71,27 @@ class groundObstacles {
   move() {
     this.x -= 8;
   }
-}
-
-class airObstacles {
-  constructor() {
-    this.x;
-    this.y;
-    this.dx;
-  }
-
-  move() {
-    this.x -= 10;
-  }
 
   display() {
-    rect(this.x,this.y,this.w,this.h);
+    rect(this.x,this.y,this.w,this.h); 
   }
 }
+
+// class airObstacles {
+//   constructor() {
+//     this.x;
+//     this.y;
+//     this.dx;
+//   }
+
+//   move() {
+//     this.x -= 10;
+//   }
+
+//   display() {
+//     rect(this.x,this.y,this.w,this.h);
+//   }
+// }
 
 
 function keyPressed() {
@@ -85,4 +101,6 @@ function keyPressed() {
 }
 
 
-  
+
+
+
