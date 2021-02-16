@@ -28,7 +28,14 @@ function draw() {
 
   for (let i of gObstacles) {      
       i.move();                           
-      i.display();                            
+      i.display();     
+      if(player.collide(i)){      
+        textAlign(CENTER);       
+        textSize(70);             
+        text("Game Over",width/2, height/2);
+        noLoop();   
+      }
+                         
   }
 }
 
@@ -57,6 +64,11 @@ class Character{
   display(){                                       
     rect(this.x,this.y,this.w,this.h);         
   }  
+
+  collide(gObs) {
+    return collideRectRect(this.x, this.y, this.w, this.h, gObs.x, gObs.y, gObs.w, gObs.h);
+
+  }
 }
 
 class groundObstacles {
