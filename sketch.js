@@ -112,6 +112,29 @@ function keyPressed() {
   }
 }
 
+function printScore() { 
+  textAlign(LEFT);      
+  fill(50);       
+  textSize(30); 
+  text("Score: "+ score, 5*width/6, height/9); 
+}
+
+
+function StartScreen() {             
+  background(236, 240, 241);         
+  textAlign(CENTER);               
+  fill(52, 73, 94);                
+  textSize(100);                     
+  text("Start", width/2, height/2); 
+
+  fill(92,167,182);                 
+  noStroke();                        
+  rectMode(CENTER);                  
+  rect(width/2, height-40, 200,60,5); 
+  fill(236,240,241);               
+  textSize(30);                  
+  text("Jump", width/2, height-30);   
+}
 
 
 
