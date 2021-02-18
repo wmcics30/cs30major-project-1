@@ -8,6 +8,16 @@
 let player, gObs;
 let lastAddedObstacle = 0;
 let gObstacles = []; 
+let airObstacles = [];               
+let imgPlayer;
+let imgGroundObs;
+let imgAirObs;             
+let jumpSound;                
+
+let score=0;                
+let bestScore=0;              
+let screen = 0         
+
 
 function setup() {
   createCanvas(800, 400);
@@ -135,6 +145,31 @@ function StartScreen() {
   textSize(30);                  
   text("Jump", width/2, height-30);   
 }
+
+function endScreen() { 
+
+  background(23, 24, 24,3);   
+  textAlign(CENTER);        
+  fill(255, 227, 132);                  
+  textSize(30);                            
+  text("Highest Score", width/2, height/10);           
+
+  fill(230, 180, 80);                      
+  textSize(30);                          
+  text("Score", width/2, height/2-110);    
+  textSize(150);                       
+  text(score, width/2, height/2+50);       
+
+  fill(92,167,182);                  
+  rectMode(CENTER);                
+  noStroke();                      
+  rect(width/2, height-40, 200,60,5);   
+  fill(236,240,241);                 
+  textSize(30);                   
+  text("Restart PLay Again", width/2, height-30);    
+}
+
+
 
 
 
