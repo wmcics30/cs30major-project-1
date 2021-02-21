@@ -14,7 +14,7 @@ let imgGroundObs;
 let imgAirObs;             
 let jumpSound;   
 
-let imgDino= [];
+let imgDino = [];
 let CLD = 0;
 let imageIndex = 1;
 
@@ -45,7 +45,7 @@ function draw() {
       gObstacles.push(new groundObstacles());         
       lastAddedObstacle = millis();              
   }
-  if (frameCount%6==0) imageIndex++; 
+  if (frameCount%6===0) imageIndex++; 
     for (let i of gObstacles) {      
         i.move();                           
         i.display();     
@@ -64,8 +64,8 @@ function draw() {
 
 class Character{                  
   constructor(){          
-    // this.w = 50;              
-    // this.h = 100;
+    this.w = 50;              
+    this.h = 100;
     this.x = 100;              
     this.y = height - this.h; 
     this.dy = 0;    
@@ -78,7 +78,7 @@ class Character{
   
   jump(){  
     if(this.y === height - this.h) {
-      this.dy = - 20;
+      this.dy = -20;
     }                   
   }
   
@@ -89,7 +89,7 @@ class Character{
   }
   
   display(){                                       
-    rect(this.img,this.x,this.y-20,this.w*1.5,this.h*1.5);         
+    image(this.img,this.x,this.y-20,this.w*1.5,this.h*1.5);         
   }  
 
   update(){                       
@@ -101,34 +101,34 @@ class Character{
          this.img = imgDino[imageIndex%2+3];        
       } 
     }  
-    else{                                      
+    else {                                      
       this.img = imgDino[5];                   
     }
   }
 
   collide(gObs) {
-    return collideRectRect(this.x, this.y, this.w, this.h, gObs.x, gObs.y, gObs.w, gObs.h);
+    return collideRectRect(this.x,this.y-20,this.w*1.5,this.h*1.5, gObs.x, gObs.y, gObs.w, gObs.h);
 
   }
 }
 
-// class groundObstacles {
-//   constructor() {
-//     this.w = 50;
-//     this.h = 100;
-//     this.x = width;
-//     this.y = height - this.h;
+class groundObstacles {
+  constructor() {
+    this.w = 50;
+    this.h = 100;
+    this.x = width;
+    this.y = height - this.h;
    
-//   }
+  }
 
-//   move() {
-//     this.x -= 8;
-//   }
+  move() {
+    this.x -= 8;
+  }
 
-//   display() {
-//     rect(this.x,this.y,this.w,this.h); 
-//   }
-// }
+  display() {
+    rect(this.x,this.y,this.w,this.h); 
+  }
+}
 
 // class airObstacles {
 //   constructor() {
