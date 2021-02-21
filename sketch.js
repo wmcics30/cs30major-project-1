@@ -201,6 +201,33 @@ function keyPressed() {
 // }
 
 
+function gameScreen() {               
+  background(0);             
+  player.display();
+  player.move();
+  let timePassed = random(700, 8000);           
+  if (millis() - lastAddedObstacle > timePassed) {   
+      gObstacles.push(new groundObstacles());         
+      lastAddedObstacle = millis();              
+  }
+  if (frameCount%6===0) imageIndex++; 
+    for (let i of gObstacles) {      
+        i.move();                           
+        i.display();     
+        if(player.collide(i)){     
+          CLD = 1; 
+          textAlign(CENTER);       
+          textSize(70);             
+          text("Game Over",width/2, height/2);
+          noLoop();   
+        }
+                          
+    }
+  
+  player.update();                        
+
+}
+
 
 
 
