@@ -9,12 +9,11 @@ let player, gObs;
 let lastAddedObstacle = 0;
 let gObstacles = []; 
 let airObstacles = [];               
-let imgPlayer;
-let imgGroundObs;
+let imgPlayer = [];
+let imgGroundObs = [];
 let imgAirObs;             
 let jumpSound;   
 
-let imgDino = [];
 let CLD = 0;
 let imageIndex = 1;
 
@@ -25,7 +24,11 @@ let screen = 0
 function preload(){                     
   for (let i=1; i<=5; i++) {           
     let string1 = "assets/dino"+i+".png"; 
-    imgDino[i]= loadImage(string1);       
+    imgPlayer[i]= loadImage(string1);       
+  }
+  for (let j=1; j<=12; j++) {           
+    let string2 = "assets/cactus"+j+".png"; 
+    imgGroundObs[j]= loadImage(string2);       
   }
 }
 
@@ -65,12 +68,12 @@ function draw() {
 class Character{                  
   constructor(){          
     this.w = 50;              
-    this.h = 100;
-    this.x = 100;              
+    this.h = 80;
+    this.x = 80;              
     this.y = height - this.h; 
     this.dy = 0;    
     this.gravity = 1;
-    this.img = imgDino[3];   
+    this.img = imgPlayer[3];   
     this.w = this.img.width;      
     this.h = this.img.height;
 
@@ -95,14 +98,14 @@ class Character{
   update(){                       
     if(CLD === 0){                               
       if(this.y < height-100){                  
-        this.img = imgDino[2];                 
+        this.img = imgPlayer[2];                 
       }
       else {                                   
-         this.img = imgDino[imageIndex%2+3];        
+         this.img = imgPlayer[imageIndex%2+3];        
       } 
     }  
     else {                                      
-      this.img = imgDino[5];                   
+      this.img = imgPlayer[5];                   
     }
   }
 
@@ -115,9 +118,12 @@ class Character{
 class groundObstacles {
   constructor() {
     this.w = 50;
-    this.h = 100;
+    this.h = 90;
     this.x = width;
     this.y = height - this.h;
+    this.img = imgGroundObs[int(random(1,12))];
+    this.w = this.img.width*1.5;
+    this.h = this.img.height*1.5;
    
   }
 
@@ -126,7 +132,7 @@ class groundObstacles {
   }
 
   display() {
-    rect(this.x,this.y,this.w,this.h); 
+    image(this.img,this.x,this.y-5,this.w*1.5,this.h*1.5); 
   }
 }
 
@@ -201,32 +207,32 @@ function keyPressed() {
 // }
 
 
-function gameScreen() {               
-  background(0);             
-  player.display();
-  player.move();
-  let timePassed = random(700, 8000);           
-  if (millis() - lastAddedObstacle > timePassed) {   
-      gObstacles.push(new groundObstacles());         
-      lastAddedObstacle = millis();              
-  }
-  if (frameCount%6===0) imageIndex++; 
-    for (let i of gObstacles) {      
-        i.move();                           
-        i.display();     
-        if(player.collide(i)){     
-          CLD = 1; 
-          textAlign(CENTER);       
-          textSize(70);             
-          text("Game Over",width/2, height/2);
-          noLoop();   
-        }
+// function gameScreen() {               
+//   background(0);             
+//   player.display();
+//   player.move();
+//   let timePassed = random(700, 8000);           
+//   if (millis() - lastAddedObstacle > timePassed) {   
+//       gObstacles.push(new groundObstacles());         
+//       lastAddedObstacle = millis();              
+//   }
+//   if (frameCount%6===0) imageIndex++; 
+//     for (let i of gObstacles) {      
+//         i.move();                           
+//         i.display();     
+//         if(player.collide(i)){     
+//           CLD = 1; 
+//           textAlign(CENTER);       
+//           textSize(70);             
+//           text("Game Over",width/2, height/2);
+//           noLoop();   
+//         }
                           
-    }
+//     }
   
-  player.update();                        
+//   player.update();                        
 
-}
+// }
 
 
 
