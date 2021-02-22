@@ -11,15 +11,16 @@ let gObstacles = [];
 let airObstacles = [];               
 let imgPlayer = [];
 let imgGroundObs = [];
-let imgAirObs;             
+let imgAirObs = [];       
+      
 let jumpSound;   
 
 let CLD = 0;
 let imageIndex = 1;
 
-let score=0;                
-let bestScore=0;              
-let screen = 0         
+let score = 0;                
+let bestScore = 0;              
+let screen = 0;        
 
 function preload(){                     
   for (let i=1; i<=5; i++) {           
@@ -45,22 +46,24 @@ function draw() {
   player.move();
   let timePassed = random(700, 8000);           
   if (millis() - lastAddedObstacle > timePassed) {   
-      gObstacles.push(new groundObstacles());         
-      lastAddedObstacle = millis();              
+    gObstacles.push(new groundObstacles());         
+    lastAddedObstacle = millis();              
   }
-  if (frameCount%6===0) imageIndex++; 
-    for (let i of gObstacles) {      
-        i.move();                           
-        i.display();     
-        if(player.collide(i)){     
-          CLD = 1; 
-          textAlign(CENTER);       
-          textSize(70);             
-          text("Game Over",width/2, height/2);
-          noLoop();   
-        }
-                          
+  if (frameCount%6===0) {
+    imageIndex++;
+  } 
+  for (let i of gObstacles) {      
+    i.move();                           
+    i.display();     
+    if(player.collide(i)){     
+      CLD = 1; 
+      textAlign(CENTER);       
+      textSize(70);             
+      text("Game Over",width/2, height/2);
+      noLoop();   
     }
+                        
+  }
   
   player.update(); 
 }
@@ -101,7 +104,7 @@ class Character{
         this.img = imgPlayer[2];                 
       }
       else {                                   
-         this.img = imgPlayer[imageIndex%2+3];        
+        this.img = imgPlayer[imageIndex%2+3];        
       } 
     }  
     else {                                      
@@ -110,7 +113,7 @@ class Character{
   }
 
   collide(gObs) {
-    return collideRectRect(this.x,this.y-20,this.w*1.5,this.h*1.5, gObs.x, gObs.y, gObs.w, gObs.h);
+    return collideRectRect(this.x,this.y-20,this.w,this.h, gObs.x, gObs.y, gObs.w, gObs.h);
 
   }
 }
@@ -122,8 +125,8 @@ class groundObstacles {
     this.x = width;
     this.y = height - this.h;
     this.img = imgGroundObs[int(random(1,12))];
-    this.w = this.img.width*1.5;
-    this.h = this.img.height*1.5;
+    this.w = this.img.width*2.2;
+    this.h = this.img.height*2.2;
    
   }
 
@@ -132,7 +135,7 @@ class groundObstacles {
   }
 
   display() {
-    image(this.img,this.x,this.y-5,this.w*1.5,this.h*1.5); 
+    image(this.img,this.x,this.y-5,this.w,this.h); 
   }
 }
 
