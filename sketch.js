@@ -139,21 +139,21 @@ class groundObstacles {
   }
 }
 
-// class airObstacles {
-//   constructor() {
-//     this.x;
-//     this.y;
-//     this.dx;
-//   }
+class airObstacles {
+  constructor() {
+    this.x;
+    this.y;
+    this.dx;
+  }
 
-//   move() {
-//     this.x -= 10;
-//   }
+  move() {
+    this.x -= 10;
+  }
 
-//   display() {
-//     rect(this.x,this.y,this.w,this.h);
-//   }
-// }
+  display() {
+    rect(this.x,this.y,this.w,this.h);
+  }
+}
 
 
 function keyPressed() {
@@ -237,6 +237,11 @@ function keyPressed() {
 
 // }
 
+// function endScreen() { 
+// }
+
+// function printScore() { 
+// }
 
 
 
