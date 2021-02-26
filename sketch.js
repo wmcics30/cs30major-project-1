@@ -14,6 +14,7 @@ let imgGroundObs = [];
 let imgAirObs = []; 
 
 let imgBackground;
+let bcX;
 let imgFloor;
       
 let jumpSound;   
@@ -35,9 +36,14 @@ function preload(){
     imgGroundObs[j]= loadImage(string2);       
   }
   for (let k=1; k<=2; k++) {           
-    let string3 = "assets/parrot"+k+".png"; 
-    imgGroundObs[k]= loadImage(string3);       
+    let string3 = "assets/parrots"+k+".png"; 
+    imgAirObs[k]= loadImage(string3);       
   }
+
+  imgBackground = loadImage("assets/bg.png");
+  bcX = 0;
+  imgFloor = loadImage("assets/base.png");
+
 }
 
 function setup() {
@@ -49,7 +55,16 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(imgBackground);
+  if (bcX + imgFloor.width/2 > 0) {
+    bcX -= 5;
+  }
+  else {
+    bcX = 0;
+  }
+  image(imgFloor, bcX, height-20, imgFloor.width, imgFloor.height);
+  
+
   player.display();
   player.move();
   let timePassed = random(700, 8000);           
@@ -70,25 +85,28 @@ function draw() {
       textSize(70);             
       text("Game Over",width/2, height/2);
       noLoop();   
-      console.log(printScore());
-    }
-                        
+      console.log(getScore());
+    } 
   }
+  // if (millis() - lastAddedObstacle > timePassed) {   
+  //   aObstacles.push(new airObstacles());         
+  //   lastAddedObstacle = millis();              
+  // }
   // for (let j of aObstacles) {      
   //   j.move();                           
-  //   j.display(); 
-  //   j.update();    
+  //   j.display();     
   //   if(player.collide(j)){     
   //     CLD = 1; 
   //     textAlign(CENTER);       
   //     textSize(70);             
   //     text("Game Over",width/2, height/2);
   //     noLoop();   
+  //     console.log(getScore());
   //   }
                         
   // }
-  
   player.update(); 
+  // aObs.update();
 }
 
 class Character{                  
@@ -118,7 +136,7 @@ class Character{
   }
   
   display(){                                       
-    image(this.img,this.x,this.y-20,this.w*1.5,this.h*1.5);         
+    image(this.img,this.x,this.y-25,this.w*1.5,this.h*1.5);         
   }  
 
   update(){                       
@@ -136,7 +154,7 @@ class Character{
   }
 
   collide(Obs) {
-    return collideRectRect(this.x,this.y-20,this.w,this.h, Obs.x, Obs.y, Obs.w, Obs.h);
+    return collideRectRect(this.x,this.y-25,this.w,this.h*0.65, Obs.x, Obs.y, Obs.w*0.75, Obs.h*0.55);
 
   }
 }
@@ -158,18 +176,24 @@ class groundObstacles {
   }
 
   display() {
-    image(this.img,this.x,this.y+20,this.w,this.h); 
+    image(this.img,this.x,this.y-1.5,this.w,this.h); 
   }
 }
 
+// function setColor () {
+//   tint();
+//   noTint();
+//   right after you've set it 
+// }
+
 // class airObstacles {
 //   constructor() {
-//     this.x = width;
-//     this.y = height*0.25;
-//     this.dx = -10;
 //     this.img = imgAirObs[1];
 //     this.w = this.img.width*1.5;
 //     this.h = this.img.height*1.5;
+//     this.x = width;
+//     this.y = height/2;
+//     this.dx = -10;
 
 //   }
 
@@ -193,7 +217,7 @@ function keyPressed() {
   }
 }
 
-function printScore() { 
+function getScore() { 
   if (CLD === 1) {
     score = millis()/1000;
     return score;
