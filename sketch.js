@@ -11,7 +11,10 @@ let gObstacles = [];
 let aObstacles = [];               
 let imgPlayer = [];
 let imgGroundObs = [];
-let imgAirObs = [];       
+let imgAirObs = []; 
+
+let imgBackground;
+let imgFloor;
       
 let jumpSound;   
 
@@ -67,22 +70,23 @@ function draw() {
       textSize(70);             
       text("Game Over",width/2, height/2);
       noLoop();   
+      console.log(printScore());
     }
                         
   }
-  for (let j of aObstacles) {      
-    j.move();                           
-    j.display(); 
-    j.update();    
-    if(player.collide(j)){     
-      CLD = 1; 
-      textAlign(CENTER);       
-      textSize(70);             
-      text("Game Over",width/2, height/2);
-      noLoop();   
-    }
+  // for (let j of aObstacles) {      
+  //   j.move();                           
+  //   j.display(); 
+  //   j.update();    
+  //   if(player.collide(j)){     
+  //     CLD = 1; 
+  //     textAlign(CENTER);       
+  //     textSize(70);             
+  //     text("Game Over",width/2, height/2);
+  //     noLoop();   
+  //   }
                         
-  }
+  // }
   
   player.update(); 
 }
@@ -154,16 +158,14 @@ class groundObstacles {
   }
 
   display() {
-    image(this.img,this.x,this.y-5,this.w,this.h); 
+    image(this.img,this.x,this.y+20,this.w,this.h); 
   }
 }
 
 // class airObstacles {
 //   constructor() {
-//     this.w = 50;
-//     this.h = 100;
 //     this.x = width;
-//     this.y = height/2;
+//     this.y = height*0.25;
 //     this.dx = -10;
 //     this.img = imgAirObs[1];
 //     this.w = this.img.width*1.5;
@@ -176,17 +178,11 @@ class groundObstacles {
 //   }
 
 //   display() {
-//     image(this.img,this.x,this.y,this.w,this.h);
+//     image(this.image,this.x,this.y,this.w,this.h);
 //   }
 
 //   update() {
-//     if(CLD === 0){                                                                
-//       this.img = imgAirObs[imageIndex];         
-//     }  
-//     else {                                      
-//       this.img = imgPlayer[0];                   
-//     }
-
+//     this.img = imgAirObs[imageIndex%2+1];
 //   }
 // }
 
@@ -197,9 +193,13 @@ function keyPressed() {
   }
 }
 
-// function printScore() { 
-//  
-// }
+function printScore() { 
+  if (CLD === 1) {
+    score = millis()/1000;
+    return score;
+  }
+ 
+}
 
 
 // function StartScreen() {             
