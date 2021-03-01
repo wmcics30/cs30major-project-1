@@ -17,14 +17,19 @@ let imgBackground;
 let bcX;
 let imgFloor;
 let imgClouds;
-      
-let jumpSound;   
+
+let menuMusic;
+let bgMusic;
+let jumpSound;
+let clickSound;   
+let gameOverSound;
 
 let CLD;
 let imageIndex;
 
 let score;                           
-let screen;        
+let screen;       
+let startTime; 
 
 function preload(){                     
   for (let i=1; i<=5; i++) {           
@@ -44,6 +49,11 @@ function preload(){
   imgFloor = loadImage("assets/base.png");
   imgClouds = loadImage("assets/cloud.png");
 
+  menuMusic = loadSound("assets/menu.mp3");
+  jumpSound = loadSound("assets/jump.mp3");
+  clickSound = loadSound("assets/click1.wav");
+  gameOverSound = loadSound("assets/gameover.wav");
+
 }
 
 function setup() {
@@ -60,6 +70,8 @@ function setup() {
   score = 0;
   imageIndex = 1;
   CLD = 0;
+
+  menuMusic.loop();
 
 
 
@@ -188,11 +200,17 @@ function pushObstacles() {
 function keyPressed() {
   if (keyCode === 87 || keyCode === 38) {
     player.jump();
+    jumpSound.play();
+  }
+  else if (keyCode === 32) {
+    if (screen === "end" ) {
+      window.location.reload();
+    }
   }
 }
 
 function getScore() { 
-  beforeRoundScore = millis()/1000;
+  beforeRoundScore = (millis() - startTime) /1000;
   score = beforeRoundScore.toFixed(3);
   return score;
 }
@@ -221,18 +239,16 @@ function displayBackground() {
 }
 
 function mousePressed() {
-  if (screen = "start") {
+  if (screen === "start") {
     if (mouseX > width/2-75 && mouseX < width/2+75 && mouseY > height-40-30 && mouseY < height-40+30) {
       screen = "game";
-    }
-  }
-  else if (screen = "end") {
-    if (mouseX > width-50-100 && mouseX < width-50+100 && mouseY > 0 && mouseY < 30+60) {
-      screen = "start";
-      setup();
-    }
-  }
+      startTime = millis();
+      clickSound.setVolume(50);
+      clickSound.play();
+      menuMusic.stop();
   
+    }
+  }
 }
 
 function startScreen() {  
@@ -256,23 +272,22 @@ function startScreen() {
 }
 
 function endScreen() { 
-  background(23, 24, 24,3); 
   textAlign(CENTER);       
   textSize(70);             
   text("Game Over",width/2, height/2);
 
   fill(230, 180, 80);                    
   textSize(30);                         
-  text("Score: "+getScore()+" second(s)", width/2, height/2+32);      
+  text("Score: "+score+" second(s)", width/2, height/2+32);      
 
   fill(92,167,182);                     
   rectMode(CENTER);                      
   noStroke();                            
-  rect(width-50, 30, 200, 60, 5);     
+  rect(width-60, 30, 200, 60, 5);     
   fill(236,240,241);                      
-  textSize(30);                           
-  text("Restart", width-70, 38);     
-
+  textSize(15);                           
+  text("Press Space to Restart", width-80, 35);  
+  noLoop();   
 }
 
 
@@ -292,6 +307,8 @@ function gameScreen() {
     i.display();     
     if(player.collide(i)){     
       CLD = 1; 
+      getScore();
+      gameOverSound.play();
       screen = "end";
     } 
   }
@@ -302,6 +319,8 @@ function gameScreen() {
     j.update();    
     if(player.collide(j)){     
       CLD = 1; 
+      getScore();
+      gameOverSound.play();
       screen = "end"; 
     }
                         
